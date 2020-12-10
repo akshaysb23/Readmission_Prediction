@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Early Diabetic Readmission Prediction</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='diabetes-favicon.ico') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+        <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- Website Title -->
+    	<div class="container">
+            <h2 class='container-heading'><span class="heading_font">Readmission Predictor</span></h2>
+            <div class='description'>
+    			<p>A Machine Learning Web App, Built with Flask, Deployed using Heroku.</p>
+    		</div>
+    	</div>
+
+        <!-- Text Area -->
+    	<div class="ml-container">
+    		<form action="{{ url_for('predict') }}" method="POST">
+                <input class="form-input" type="text" name="Race of patient" placeholder="Enter race eg.: 0:AfricanAmerican,1:Asian,2:Caucasian,3:Hispanic,4:Other"><br>
+                <input class="form-input" type="text" name="Age range of patient" placeholder="0:[0-30), 1:[30-40), 2:[40-50), 3:[50-60), 4:[60-70), 5:[70-80),6:[80-100)"><br>
+                <input class="form-input" type="text" name="Admission_type_id" placeholder="0:Elective, 1:Emergency, 2:Others, 3:Unknown, 4:Urgent"><br>
+                <input class="form-input" type="text" name="Discharge_disposition_id" placeholder="0:Discharged, 1:Expired, 2:Hospice, 3:Inpatient, 4:Left AMA, 5:Transferred,6:Unknown"><br>
+                <input class="form-input" type="text" name="Admission_source_id" placeholder="0:Emergency, 1:Others, 2:Readmission, 3:Referral, 4:Transfer, 5:Unknown"><br>
+                <input class="form-input" type="text" name="time_in_hospital" placeholder="No. of days in hospital"><br>
+                <input class="form-input" type="text" name="num_lab_procedures" placeholder="Number of lab procedures"><br>
+                <input class="form-input" type="text" name="num_procedures" placeholder="Number of other procedures"><br>
+                <input class="form-input" type="text" name="num_medications" placeholder="Number of medications"><br>
+                <input class="form-input" type="text" name="number_outpatient" placeholder="Number of outpatient visits previous to this encounter"><br>
+                <input class="form-input" type="text" name="number_emergency" placeholder="Number of emergency visits previous to this encounter"><br>
+                <input class="form-input" type="text" name="number_inpatient" placeholder="Number of inpatient visits previous to this encounter"><br>
+                <input class="form-input" type="text" name="diag_1" placeholder="0:Circulatory, 1:Diabetes, 2:Digestive, 3:Genitourinary, 4:Injury, 5:Neoplasms,6:Not Applicable,7:Others,8:Others,9:Respiratory"><br>
+                <input class="form-input" type="text" name="diag_2" placeholder="0:Circulatory, 1:Diabetes, 2:Digestive, 3:Genitourinary, 4:Injury, 5:Neoplasms,6:Not Applicable,7:Others,8:Others,9:Respiratory"><br>
+                <input class="form-input" type="text" name="diag_3" placeholder="0:Circulatory, 1:Diabetes, 2:Digestive, 3:Genitourinary, 4:Injury, 5:Neoplasms,6:Not Applicable,7:Others,8:Others,9:Respiratory"><br>
+                <input class="form-input" type="text" name="number_diagnoses" placeholder="Total number of diagnosis"><br>
+                <input class="form-input" type="text" name="max_glu_serum" placeholder="Max Glucose serum level of patient 0:<200, 1:<300, 2:None, 3:Norm"><br>
+                <input class="form-input" type="text" name="A1Cresult" placeholder="A1C test result of patient 0:<7, 1:<8, 2:None, 3:Norm"><br>
+                <input class="form-input" type="text" name="metformin" placeholder="Is Metformin prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="repaglinide" placeholder="Is Repaglinide prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="glimepiride" placeholder="Is glimepiride prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="glipizide" placeholder="Is glipizide prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="glyburide" placeholder="Is glyburide prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="pioglitazone" placeholder="Is pioglitazone prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="rosiglitazone" placeholder="Is rosiglitazone prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="miglitol" placeholder="Is miglitol prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="insulin" placeholder="Is insulin prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="glyburide-metformin" placeholder="Is glyburide-metformin prescribed to patient? 0:Down, 1:No, 2:Steady, 3:Up"><br>
+                <input class="form-input" type="text" name="Up_medicine" placeholder="Number of up dosages"><br>
+                <input class="form-input" type="text" name="Down_medicine" placeholder="Number of down dosages"><br>
+                <input class="form-input" type="text" name="Steady_medicine" placeholder="Number of steady dosages"><br>
+                <input class="form-input" type="text" name="change" placeholder="Change in medication? 0:Ch, 1:No"><br>
+                <input class="form-input" type="text" name="diabetesMed" placeholder="Whether patient is prescribed with medications 0:No, 1:Yes"><br>
+
+        		<input type="submit" class="my-cta-button" value="Predict">
+        	</form>
+    	</div>
+
+        <!-- Footer -->
+       <div class='footer'>
+           <div class="contact">
+               <a target="_blank" href="https://github.com/akshaysb23/Early_readmission_Prediction"><i class="fab fa-github fa-lg contact-icon"></i></a>
+               <a target="_blank" href="https://www.linkedin.com/in/akshaybidarkundi/"><i class="fab fa-linkedin fa-lg contact-icon"></i></a>
+           </div>
+           <p class='footer-description'>Made by Capstone Group 5.</p>
+       </div>
+
+    </body>
+</html>
